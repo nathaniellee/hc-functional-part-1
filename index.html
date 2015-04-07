@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<title>The Past, Present and Future of Functional JavaScript</title>
+		<style>
+			@import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+			@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+			@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+			body {
+				font-family: 'Droid Serif';
+			}
+
+			h1, h2, h3 {
+				font-family: 'Yanone Kaffeesatz';
+				font-weight: normal;
+			}
+
+			.title {
+				background-color: #272822;
+				color: white;
+			}
+
+			.business-card {
+				background-color: #272822;
+				background-position: left;
+				display: block;
+				margin-top: 50px;
+			}
+
+			.pics {
+				display: block;
+				margin-top: 50px;
+			}
+
+			.pics > span {
+				display: inline-block;
+				height: 180px;
+				width: 180px;
+			}
+
+			.pics .gamer {
+				background-image: url(nes-controller.png);
+			}
+
+			.pics .kids {
+				background-image: url(alex-and-aidan.png);
+			}
+
+			.pics .js-logo {
+				background-image: url(javascript-logo.png);
+				background-size: contain;
+			}
+
+			.obiwan {
+				background-image: url(obiwan.jpg);
+				display: block;
+				height: 277px;
+				margin: 0 auto;
+				width: 490px;
+			}
+
+			.year-19100 {
+				background-image: url(year-19100-1.jpg);
+				display: block;
+				height: 273px;
+				margin: 0 auto;
+				width: 490px;
+			}
+
+			.quote-container {
+				display: inline-block;
+				font-style: italic;
+				position: relative;
+			}
+
+			.quote {
+				display: inline-block;
+				margin: 0 0;
+				padding: 0 40px;
+			}
+
+			.quote:before {
+				color: #7a7a7a;
+				content: "\201C";
+				display: block;
+				font-size: 80px;
+				left: -20px;
+				position: absolute;
+				top: -20px;
+			}
+
+			.quote .cite {
+				display: block;
+				font-size: 13px;
+				margin-top: 10px;
+			}
+
+			.quote .cite:before {
+				content: "\2014 \2009";
+			}
+
+			.strikethrough {
+				text-decoration: line-through;
+			}
+
+			.hljs-default .hljs {
+				box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2);
+			}
+
+			.remark-code,
+			.remark-inline-code {
+				font-family: 'Ubuntu Mono';
+			}
+
+			.remark-slide li {
+				margin-bottom: 0.5em;
+			}
+			.remark-slide ol ol {
+				list-style-type: lower-alpha;
+			}
+			.remark-slide ol ol ol {
+				list-style-type: lower-roman;
+			}
+
+			.remark-slide-number {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<textarea id="source">
+
+class: center, middle, title
+
+# Functional JavaScript:<br/>The Past, Present &amp; Future
+
+---
+
+class: middle
+
+```javascript
+var me = {
+	name: 'Nathaniel Lee',
+	job: {
+		employer: 'AppNexus',
+		title: 'User Interface Engineer'
+	},
+	favorites: [
+		'my family',
+		'digital entertainment',
+		'JavaScript'
+	]
+};
+```
+
+---
+
+class: center, middle, title
+
+# Nathaniel Lee: User Interface Engineer
+.pics[.kids[] .gamer[] .js-logo[]]
+.business-card[![AppNexus logo](appnexus-logo.png)]
+
+---
+
+class: middle
+
+```javascript
+var targetClass = 'summary';
+var summaries = [];
+for (var i = 0; i &lt; document.body.childNodes.length; i++) {
+	var currentNode = document.body.childNodes[i];
+	var classes = currentNode.className.split(' ');
+	if (classes.indexOf(targetClass) !== -1) {
+		summaries.push(currentNode);
+	}
+	/** Continue with this node's children and so on... */
+}
+```
+
+---
+
+class: middle
+
+## Imperative programming
+
+**The focus is on how we accomplish our goal.** We tell the environment *how* to do something, and it does *what* we want it to do.
+
+---
+
+class: middle
+
+```javascript
+var summaries = $('.summary');
+```
+
+---
+
+class: middle
+
+## Declarative programming
+
+**The focus is on what we want to accomplish.** We tell the environment *what* we want to happen, and it figures out *how* to do it.
+
+---
+
+class: center, middle
+
+## Libraries are declarative tools
+
+---
+
+class: middle
+
+Because jQuery gave us this:
+
+```javascript
+var summaries = $('.summary');
+```
+
+We now have this:
+
+```javascript
+var summaries = document.querySelectorAll('.summary');
+```
+
+---
+
+class: center, middle
+
+## Thanks, John Resig!
+
+---
+
+class: middle
+
+.quote-container[.quote[Any fool can write code that a computer can understand.<br/>Good programmers write code that humans can understand..cite[Martin Fowler]]]
+
+---
+
+class: middle
+
+## Functional programming
+
+Aims to increase not just readability and understandability but also predictability:
+
+* avoid changes in program state that make it more difficult to reason about the result of an operation
+* abstract simple, reusable actions into functions that act similarly to traditional mathematical functions
+* use those functions to build more complex operations
+
+---
+
+class: center, middle
+
+## Programming with functions?
+
+---
+
+class: center, middle
+
+## "Scheme in the browser"
+
+---
+
+class: middle
+
+```javascript
+Scheme.prototype = new Lisp;
+```
+
+---
+
+class: middle
+
+.quote-container[.quote[JavaScript's C-like syntax, including curly braces and the clunky for statement, makes it appear to be an ordinary procedural language. This is misleading because JavaScript has more in common with functional languages like Lisp or Scheme than with C or Java..cite[Douglas Crockford]]]
+
+---
+
+class: middle
+
+```javascript
+meme.setUpperText("LET'S LOOK TO THE FUTURE");
+meme.setLowerText("ALL THE WAY TO THE YEAR " +
+		new String("19" + (new Date).getYear()));
+```
+
+---
+
+class: center, middle
+
+.year-19100[]
+
+---
+
+class: middle
+
+```javascript
+Self.prototype = new Smalltalk;
+Self.prototype.constructor = Self;
+Self.prototype.getInheritanceSystem = function () {
+	return "Prototypes FTW!!!";
+};
+
+JavaScript.extend({
+	getInheritanceSystem: Self.getInheritanceSystem,
+	functions: Scheme.firstClassFunctions
+});
+```
+
+---
+
+class: middle
+
+### We can assign a function to a variable
+
+```javascript
+var multiply = function (x, y) {
+	return x * y;
+};
+```
+
+---
+
+class: middle
+
+### We can store a function in a data structure
+
+```javascript
+var calculator = {
+	multiply: multiply
+};
+```
+
+---
+
+class: middle
+
+### We can pass a function into another function
+
+```javascript
+calculator.calculate = function (fn, x, y) {
+	return fn(x, y);
+};
+```
+
+---
+
+class: middle
+
+### We can return a function from another function
+
+```javascript
+calculator.double = function () {
+	return function (x) {
+		return multiply(x, 2);
+	};
+}(multiply);
+```
+
+---
+
+class: center, middle
+
+## Functions are first class citizens in JavaScript
+
+---
+
+class: center, middle
+
+## Higher order functions
+
+---
+
+class: middle
+
+```javascript
+var companies = [
+  {
+    name: "Buy 'N Large",
+    donations: [35, 25, 50, 80, 50, 45, 15, 20, 10, 20, 30, 80, 75, 55, 60]
+  },
+  {
+    name: "Weyland-Yutani",
+    donations: [40, 40, 25, 20, 60, 30, 30, 45, 25, 50, 25, 25, 30]
+  },
+  {
+    name: "Omni Consumer Products",
+    donations: [50, 55, 65, 85, 100, 30, 65]
+  },
+  {
+    name: "Cyberdyne Systems",
+    donations: [10, 20, 40, 30, 35, 50, 45, 50, 55]
+  },
+  {
+    name: "Umbrella Corporation",
+    donations: [45, 70, 35, 65, 75, 40, 55, 65, 85, 70, 45, 50]
+  }
+];
+```
+
+---
+
+class: middle
+
+```javascript
+var data = [];
+var company;
+var averageDonation;
+var totalDonation;
+var i;
+var j;
+
+for (i = 0; i < companies.length; i++) {
+	company = companies[i];
+	totalDonation = 0;
+
+	for (j = 0; j < company.donations.length; j++) {
+		totalDonation += company.donations[j];
+	}
+
+	averageDonation = totalDonation / company.donations.length;
+	data.push([
+		company.name,
+		averageDonation,
+		totalDonation
+	]);
+}
+```
+
+---
+
+class: center, middle
+
+## .strikethrough[Iteration] Recursion
+
+---
+
+class: middle
+
+```javascript
+function forEach(arr, callback) {
+	callback(arr.shift());
+
+	if (arr.length > 0) {
+		forEach(arr, callback);
+	}
+}
+```
+
+---
+
+class: middle
+
+```javascript
+function forEach(arr, callback) {
+	callback(arr[0]);
+
+	if (arr.length > 1) {
+		forEach(arr.slice(1), callback);
+	}
+}
+```
+
+---
+
+class: middle
+
+```javascript
+var data = [];
+var averageDonation;
+var totalDonation;
+
+forEach(companies, function (company) {
+	totalDonation = 0;
+
+	forEach(company.donations, function (donation) {
+		totalDonation += donation;
+	});
+
+	averageDonation = totalDonation / company.donations.length;
+	data.push([
+		company.name,
+		averageDonation,
+		totalDonation
+	]);
+});
+```
+
+---
+
+class: middle
+
+```javascript
+var data = [];
+var averageDonation;
+var totalDonation;
+
+companies.forEach(function (company) {
+	totalDonation = 0;
+
+	company.donations.forEach(function (donation) {
+		totalDonation += donation;
+	});
+
+	averageDonation = totalDonation / company.donations.length;
+	data.push([
+		company.name,
+		averageDonation,
+		totalDonation
+	]);
+});
+```
+
+---
+
+class: middle
+
+```javascript
+function add(a, b) {
+	return a + b;
+}
+
+function total(numbers) {
+	return numbers.reduce(add);
+}
+```
+
+---
+
+class: middle
+
+```javascript
+var data = [];
+var averageDonation;
+var totalDonation;
+
+companies.forEach(function (company) {
+	totalDonation = total(company.donations);
+	averageDonation = totalDonation / company.donations.length;
+	data.push([
+		company.name,
+		averageDonation,
+		totalDonation
+	]);
+});
+```
+
+---
+
+class: middle
+
+```javascript
+function average(numbers) {
+	return total(numbers) / numbers.length;
+}
+```
+
+---
+
+class: middle
+
+```javascript
+var data = [];
+var averageDonation;
+var totalDonation;
+
+companies.forEach(function (company) {
+	totalDonation = total(company.donations);
+	averageDonation = average(company.donations);
+	data.push([
+		company.name,
+		averageDonation,
+		totalDonation
+	]);
+});
+```
+
+---
+
+class: middle
+
+```javascript
+var data = [];
+
+companies.forEach(function (company) {
+	data.push([
+		company.name,
+		average(company.donations),
+		total(company.donations)
+	]);
+});
+```
+
+---
+
+class: middle
+
+```javascript
+var data = companies.map(function (company) {
+	return [
+		company.name,
+		average(company.donations),
+		total(company.donations)
+	];
+});
+```
+
+---
+
+class: center, middle
+
+## Arrow functions
+
+---
+
+class: middle
+
+```javascript
+x => x * 2;
+```
+
+---
+
+class: middle
+
+```javascript
+var add = (x, y) => x + y;
+```
+
+---
+
+class: middle
+
+```javascript
+function total(numbers) {
+	return numbers.reduce((x, y) => x + y);
+}
+
+function average(numbers) {
+	return numbers.reduce((x, y) => x + y) / numbers.length;
+}
+```
+
+---
+
+class: middle
+
+```javascript
+var data = companies.map(company => [
+	company.name,
+	company.donations.reduce((x, y) => x + y) / company.donations.length,
+	comapny.donations.reduce((x, y) => x + y)
+]);
+```
+
+---
+
+class: middle
+
+```javascript
+var data = companies.map(company => [
+	company.name,
+	average(company.donations),
+	total(company.donations)
+]);
+```
+
+---
+
+class: middle
+
+.quote-container[.quote[Good code is its own best documentation. As you’re about to add a comment, ask yourself, ‘How can I improve the code so that this comment isn’t needed?'.cite[Steve McConnell]]]
+
+---
+
+class: middle
+
+.quote-container[.quote[Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live..cite[Martin Golding]]]
+
+---
+
+class: center, middle
+
+.obiwan[]
+
+---
+
+class: center, middle
+
+# Thanks!
+
+		</textarea>
+		<script src="remark.min.js"></script>
+		<script>
+			var slideshow = remark.create();
+		</script>
+	</body>
+</html>
